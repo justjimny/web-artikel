@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tulis Artikel Baru - Seueng Samlakoe</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
+    <!-- CSS Variables for Dynamic Customization -->
+    <style>
+        :root {
+            --primary-color: #b6eb24;
+            --primary-color-rgb: 182, 235, 36;
+            --primary-hover: #b6eb24dd;
+            --primary-contrast: #0f172a;
+            --text-primary: #516910;
+            --bg-color: #f8fafc;
+            --font-family: 'Instrument Sans', sans-serif;
+
+            /* Logo customization settings variables */
+            --logo-width: 120px;
+            --logo-height: 40px;
+            --logo-border-radius: 8px;
+        }
+
+        .logo-custom {
+            width: var(--logo-width) !important;
+            height: var(--logo-height) !important;
+            border-radius: var(--logo-border-radius) !important;
+            object-fit: cover !important;
+        }
+
+        /* Direct CSS fallback overrides to bypass Tailwind compilation inside container */
+        .bg-primary {
+            background-color: var(--primary-color) !important;
+            color: var(--primary-contrast) !important;
+        }
+        .bg-primary * {
+            color: inherit !important;
+        }
+        .hover\:bg-primary-hover:hover {
+            background-color: var(--primary-hover) !important;
+            color: var(--primary-contrast) !important;
+        }
+        .text-primary {
+            color: var(--text-primary) !important;
+        }
+        .hover\:text-primary:hover {
+            color: var(--text-primary) !important;
+        }
+        .border-primary {
+            border-color: var(--primary-color) !important;
+        }
+        .hover\:border-primary:hover {
+            border-color: var(--primary-color) !important;
+        }
+        .focus\:border-primary:focus {
+            border-color: var(--primary-color) !important;
+        }
+        .bg-primary\/10 {
+            background-color: rgba(var(--primary-color-rgb), 0.1) !important;
+        }
+        .bg-primary\/5 {
+            background-color: rgba(var(--primary-color-rgb), 0.05) !important;
+        }
+        .hover\:bg-primary\/5:hover {
+            background-color: rgba(var(--primary-color-rgb), 0.05) !important;
+        }
+        .shadow-primary\/20 {
+            box-shadow: 0 4px 6px -1px rgba(var(--primary-color-rgb), 0.2), 0 2px 4px -2px rgba(var(--primary-color-rgb), 0.2) !important;
+        }
+        .shadow-primary\/25 {
+            box-shadow: 0 10px 15px -3px rgba(var(--primary-color-rgb), 0.25), 0 4px 6px -4px rgba(var(--primary-color-rgb), 0.25) !important;
+        }
+        .bg-gradient-to-br.from-primary.to-emerald-400 {
+            background-image: linear-gradient(135deg, var(--primary-color), #34d399) !important;
+        }
+    </style>
+
+    <!-- Tailwind CSS v4 Browser Engine -->
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+
+    <!-- Configure Tailwind v4 Theme Variables -->
+    <style type="tailwindcss">
+        @theme {
+            --color-primary: var(--primary-color);
+            --color-primary-hover: var(--primary-hover);
+            --font-site: var(--font-family);
+        }
+        body {
+            font-family: var(--font-site);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 flex min-h-screen">
+
+    <!-- Sidebar Wrapper -->
+    <aside class="hidden lg:flex flex-col w-64 border-r border-slate-200 bg-white sticky top-0 h-screen flex-shrink-0 z-40">
+        <!-- Sidebar Brand Title -->
+        <div class="h-20 flex items-center px-6 border-b border-slate-100">
+            <a href="http://localhost:8000" class="flex items-center gap-2.5 group" target="_blank">
+                                    <img src="http://localhost:8000/storage/site/rooCGe51Fo2TcRsnRlXzOtrpt8noCag8wJtKhuBJ.jpg" alt="Logo" class="logo-custom">
+                                <i class="fa-solid fa-arrow-up-right-from-square text-xs text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity ml-1.5"></i>
+            </a>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="flex-grow p-4 space-y-7 overflow-y-auto text-sm font-semibold tracking-wide">
+            
+            <!-- Super Admin Section -->
+                            <div class="space-y-1.5">
+                    <span class="px-3 text-2xs uppercase tracking-widest text-slate-400 font-extrabold block mb-2">Super Admin</span>
+                    <a href="http://localhost:8000/admin/super" class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all text-slate-600 hover:bg-slate-50">
+                        <i class="fa-solid fa-chart-line w-5 text-center"></i> Analitik & Ringkasan
+                    </a>
+                    <a href="http://localhost:8000/admin/super/settings" class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all text-slate-600 hover:bg-slate-50">
+                        <i class="fa-solid fa-sliders w-5 text-center"></i> Pengaturan Website
+                    </a>
+                    <a href="http://localhost:8000/admin/super/users" class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all text-slate-600 hover:bg-slate-50">
+                        <i class="fa-solid fa-users-gear w-5 text-center"></i> Manajemen Admin
+                    </a>
+                    <a href="http://localhost:8000/admin/super/categories" class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all text-slate-600 hover:bg-slate-50">
+                        <i class="fa-solid fa-tags w-5 text-center"></i> Kategori Artikel
+                    </a>
+                    <a href="http://localhost:8000/admin/super/logs" class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all text-slate-600 hover:bg-slate-50">
+                        <i class="fa-solid fa-clock-rotate-left w-5 text-center"></i> Log Aktivitas
+                    </a>
+                </div>
+            
+            <!-- Admin Artikel Section -->
+            <div class="space-y-1.5">
+                <span class="px-3 text-2xs uppercase tracking-widest text-slate-400 font-extrabold block mb-2">Manajemen Konten</span>
+                <a href="http://localhost:8000/admin/artikel" class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all text-slate-600 hover:bg-slate-50">
+                    <i class="fa-regular fa-newspaper w-5 text-center"></i> Kelola Artikel
+                </a>
+                <a href="http://localhost:8000/admin/artikel/export" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 transition-all">
+                    <i class="fa-solid fa-file-csv w-5 text-center"></i> Ekspor Artikel (CSV)
+                </a>
+            </div>
+        </nav>
+
+        <!-- Sidebar User Footer Card -->
+        <div class="p-4 border-t border-slate-100 bg-slate-50/50">
+            <div class="flex items-center justify-between mb-4">
+                <div class="truncate">
+                    <h5 class="font-bold text-slate-800 text-sm truncate leading-tight">Super Admin</h5>
+                    <span class="inline-flex px-2 py-0.5 rounded-md bg-primary/10 text-primary text-3xs font-extrabold uppercase mt-1">
+                        Super Admin
+                    </span>
+                </div>
+            </div>
+            
+            <form action="http://localhost:8000/admin/logout" method="POST">
+                <input type="hidden" name="_token" value="Y1Gyzfztk5H1Sm8372BFp5WrDzDhkdZmnElXUhAd" autocomplete="off">                <button type="submit" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 text-slate-600 hover:text-red-600 hover:border-red-200 hover:bg-red-50 text-xs font-bold transition-all cursor-pointer">
+                    <i class="fa-solid fa-right-from-bracket"></i> Keluar
+                </button>
+            </form>
+        </div>
+    </aside>
+
+    <!-- Main Container -->
+    <div class="flex-grow flex flex-col min-w-0 min-h-screen">
+        <!-- Dashboard Top Header (Mobile & Topbar) -->
+        <header class="h-20 bg-white border-b border-slate-200 px-6 sm:px-8 flex items-center justify-between sticky top-0 z-30">
+            <div class="flex items-center gap-4">
+                <!-- Mobile sidebar toggler -->
+                <button id="sidebar-toggle" type="button" class="lg:hidden p-2 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 cursor-pointer">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+                <h2 class="text-xl font-extrabold text-slate-900 tracking-tight">Tulis Artikel Baru</h2>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <a href="http://localhost:8000" target="_blank" class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-slate-200 text-slate-600 hover:text-primary hover:border-primary text-xs font-bold transition-all">
+                    <i class="fa-solid fa-globe"></i> Kunjungi Website
+                </a>
+            </div>
+        </header>
+
+        <!-- Mobile Drawer Navigation -->
+        <div id="mobile-sidebar" class="hidden fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xs lg:hidden transition-all duration-300">
+            <div class="w-64 bg-white h-screen flex flex-col shadow-2xl relative animate-slide-in">
+                <!-- Close Button -->
+                <button id="close-sidebar" class="absolute top-6 right-6 text-slate-500 hover:text-slate-800 text-lg cursor-pointer">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                
+                <div class="h-20 flex items-center px-6 border-b border-slate-100">
+                    <div class="flex items-center gap-2.5">
+                                                    <img src="http://localhost:8000/storage/site/rooCGe51Fo2TcRsnRlXzOtrpt8noCag8wJtKhuBJ.jpg" alt="Logo" class="logo-custom">
+                                            </div>
+                </div>
+
+                <nav class="flex-grow p-4 space-y-6 overflow-y-auto text-sm font-semibold tracking-wide">
+                                            <div class="space-y-1">
+                            <span class="px-3 text-3xs uppercase tracking-widest text-slate-400 font-extrabold block mb-1">Super Admin</span>
+                            <a href="http://localhost:8000/admin/super" class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-600 hover:bg-slate-50">
+                                <i class="fa-solid fa-chart-line w-5 text-center"></i> Analitik & Ringkasan
+                            </a>
+                            <a href="http://localhost:8000/admin/super/settings" class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-600 hover:bg-slate-50">
+                                <i class="fa-solid fa-sliders w-5 text-center"></i> Pengaturan Website
+                            </a>
+                            <a href="http://localhost:8000/admin/super/users" class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-600 hover:bg-slate-50">
+                                <i class="fa-solid fa-users-gear w-5 text-center"></i> Manajemen Admin
+                            </a>
+                            <a href="http://localhost:8000/admin/super/categories" class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-600 hover:bg-slate-50">
+                                <i class="fa-solid fa-tags w-5 text-center"></i> Kategori Artikel
+                            </a>
+                            <a href="http://localhost:8000/admin/super/logs" class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-600 hover:bg-slate-50">
+                                <i class="fa-solid fa-clock-rotate-left w-5 text-center"></i> Log Aktivitas
+                            </a>
+                        </div>
+                    
+                    <div class="space-y-1">
+                        <span class="px-3 text-3xs uppercase tracking-widest text-slate-400 font-extrabold block mb-1">Manajemen Konten</span>
+                        <a href="http://localhost:8000/admin/artikel" class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-600 hover:bg-slate-50">
+                            <i class="fa-regular fa-newspaper w-5 text-center"></i> Kelola Artikel
+                        </a>
+                        <a href="http://localhost:8000/admin/artikel/export" class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-600 hover:bg-slate-50">
+                            <i class="fa-solid fa-file-csv w-5 text-center"></i> Ekspor Artikel (CSV)
+                        </a>
+                    </div>
+                </nav>
+
+                <div class="p-4 border-t border-slate-100 bg-slate-50">
+                    <h5 class="font-bold text-slate-800 text-sm truncate leading-tight">Super Admin</h5>
+                    <span class="inline-flex px-2 py-0.5 rounded-md bg-primary/10 text-primary text-3xs font-extrabold uppercase mt-1 mb-4">
+                        Super Admin
+                    </span>
+                    <form action="http://localhost:8000/admin/logout" method="POST">
+                        <input type="hidden" name="_token" value="Y1Gyzfztk5H1Sm8372BFp5WrDzDhkdZmnElXUhAd" autocomplete="off">                        <button type="submit" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 text-slate-600 hover:text-red-600 hover:border-red-200 hover:bg-red-50 text-xs font-bold transition-all cursor-pointer">
+                            <i class="fa-solid fa-right-from-bracket"></i> Keluar
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Frame -->
+        <main class="flex-grow p-6 sm:p-8 overflow-y-auto">
+            <!-- Toast Notifications -->
+            
+            
+            <div class="max-w-4xl mx-auto space-y-6">
+    <!-- Back Header -->
+    <a href="http://localhost:8000/admin/artikel" class="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-500 hover:text-primary transition-colors">
+        <i class="fa-solid fa-arrow-left"></i> Kembali ke Daftar Artikel
+    </a>
+
+    <!-- Form Container -->
+    <div class="bg-white border border-slate-200/60 rounded-3xl p-8 shadow-sm">
+        <form action="http://localhost:8000/admin/artikel" method="POST" enctype="multipart/form-data" class="space-y-6">
+            <input type="hidden" name="_token" value="Y1Gyzfztk5H1Sm8372BFp5WrDzDhkdZmnElXUhAd" autocomplete="off">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Title -->
+                <div class="space-y-2 md:col-span-2">
+                    <label for="title" class="text-sm font-bold text-slate-700">Judul Artikel</label>
+                    <input type="text" id="title" name="title" value="" required placeholder="Masukkan judul artikel" class="w-full px-4 py-2.5 rounded-xl border  border-slate-200 focus:border-primary  focus:outline-none text-sm transition-all">
+                                    </div>
+
+                <!-- Publisher Name -->
+                <div class="space-y-2">
+                    <label for="publisher_name" class="text-sm font-bold text-slate-700">Nama Publisher</label>
+                    <input type="text" id="publisher_name" name="publisher_name" value="Super Admin" required placeholder="Contoh: Admin Redaksi" class="w-full px-4 py-2.5 rounded-xl border  border-slate-200 focus:border-primary  focus:outline-none text-sm transition-all">
+                    <span class="text-3xs text-slate-400 font-medium block">Nama ini akan dipublikasikan secara publik di atas artikel (fleksibel).</span>
+                                    </div>
+
+                <!-- Category -->
+                <div class="space-y-2">
+                    <label for="category_id" class="text-sm font-bold text-slate-700">Kategori Artikel</label>
+                    <select id="category_id" name="category_id" class="w-full px-4 py-2.5 rounded-xl border  border-slate-200 focus:border-primary  focus:outline-none text-sm bg-white cursor-pointer transition-all">
+                        <option value="">-- Pilih Kategori --</option>
+                                                    <option value="1" >
+                                Teknologi
+                            </option>
+                                                    <option value="2" >
+                                Kesehatan
+                            </option>
+                                                    <option value="3" >
+                                Pendidikan
+                            </option>
+                                                    <option value="4" >
+                                Kuliner
+                            </option>
+                                                    <option value="5" >
+                                Gaya Hidup
+                            </option>
+                                            </select>
+                                    </div>
+            </div>
+
+            <!-- Cover Image File Upload / URL -->
+            <div class="space-y-2">
+                <label class="text-sm font-bold text-slate-700 block">Foto Cover Artikel</label>
+                
+                <div class="flex items-center gap-6">
+                    <!-- Preview Holder -->
+                    <div id="image-preview-container" class="hidden w-28 aspect-[16/10] rounded-xl border border-slate-200 overflow-hidden bg-slate-50 flex-shrink-0">
+                        <img id="image-preview" src="#" alt="Preview" class="w-full h-full object-cover">
+                    </div>
+                    
+                    <!-- File drop/picker -->
+                    <div class="flex-grow">
+                        <input type="file" id="image" name="image" accept="image/*" class="hidden">
+                        <label for="image" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-dashed border-slate-300 text-slate-600 hover:text-primary hover:border-primary hover:bg-primary/5 text-sm font-semibold cursor-pointer transition-all">
+                            <i class="fa-solid fa-cloud-arrow-up text-base"></i> Pilih File Gambar Cover
+                        </label>
+                        <span class="text-3xs text-slate-400 font-medium block mt-2">Format yang didukung: JPEG, PNG, JPG, WEBP, GIF. Ukuran maks: 2MB.</span>
+                    </div>
+                </div>
+                
+                <!-- URL Image Input -->
+                <div class="pt-2 space-y-1.5">
+                    <label for="image_url" class="text-xs font-bold text-slate-600 block">Atau gunakan URL Gambar</label>
+                    <input type="url" id="image_url" name="image_url" value="" placeholder="https://images.unsplash.com/photo-..." class="w-full px-4 py-2.5 rounded-xl border  border-slate-200 focus:border-primary  focus:outline-none text-sm transition-all">
+                                    </div>
+            </div>
+
+            <!-- Content Area (Editor.js) -->
+            <div class="space-y-2">
+                <label class="text-sm font-bold text-slate-700">Konten / Deskripsi Artikel</label>
+                <div class="w-full px-5 py-4 rounded-xl border border-slate-200 focus-within:border-primary text-sm transition-all bg-slate-50/20 min-h-[350px]">
+                    <div id="editorjs" class="prose max-w-none"></div>
+                </div>
+                <input type="hidden" id="content" name="content" value="">
+                            </div>
+
+            <!-- Submit Button -->
+            <div class="border-t border-slate-100 pt-6 flex justify-end gap-3 font-semibold text-sm">
+                <a href="http://localhost:8000/admin/artikel" class="px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 transition-all">
+                    Batalkan
+                </a>
+                <button type="submit" class="px-6 py-2.5 rounded-xl bg-primary text-white shadow-md shadow-primary/20 hover:bg-primary-hover hover:shadow-lg transition-all cursor-pointer">
+                    Simpan & Terbitkan
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<!-- Load Editor.js and Plugins from CDNs -->
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
+
+<!-- Image selection preview & Editor.js initialization script -->
+<script>
+    // Initial content parsing helper
+    let initialData = {};
+    const rawContent = `""`;
+    if (rawContent) {
+        try {
+            const parsedRaw = JSON.parse(rawContent);
+            if (parsedRaw && parsedRaw.trim().startsWith('{')) {
+                initialData = JSON.parse(parsedRaw);
+            } else if (parsedRaw && parsedRaw.trim() !== '') {
+                initialData = convertPlainToBlocks(parsedRaw);
+            }
+        } catch(e) {
+            console.error('Error parsing old content: ', e);
+        }
+    }
+
+    function convertPlainToBlocks(text) {
+        const paragraphs = text.split(/\r?\n\r?\n/);
+        return {
+            blocks: paragraphs.filter(p => p.trim() !== '').map(p => {
+                return {
+                    type: "paragraph",
+                    data: {
+                        text: p.replace(/\r?\n/g, '<br>')
+                    }
+                };
+            })
+        };
+    }
+
+    // Initialize Editor.js
+    const editor = new EditorJS({
+        holder: 'editorjs',
+        tools: {
+            header: {
+                class: Header,
+                inlineToolbar: ['link'],
+                config: {
+                    placeholder: 'Ketik sub-judul (header)...',
+                    levels: [2, 3, 4],
+                    defaultLevel: 2
+                }
+            },
+            list: {
+                class: List,
+                inlineToolbar: true,
+                config: {
+                    defaultStyle: 'unordered'
+                }
+            }
+        },
+        placeholder: 'Tulis cerita atau deskripsi lengkap artikel Anda di sini...',
+        data: initialData
+    });
+
+    // Handle form submit
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        editor.save().then((outputData) => {
+            if (!outputData.blocks || outputData.blocks.length === 0) {
+                alert('Konten artikel tidak boleh kosong!');
+                return;
+            }
+            document.getElementById('content').value = JSON.stringify(outputData);
+            form.submit();
+        }).catch((error) => {
+            console.error('Saving failed: ', error);
+            form.submit();
+        });
+    });
+
+    const imageInput = document.getElementById('image');
+    const imageUrlInput = document.getElementById('image_url');
+    const previewContainer = document.getElementById('image-preview-container');
+    const previewImage = document.getElementById('image-preview');
+
+    imageInput.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.addEventListener('load', function() {
+                previewImage.setAttribute('src', this.result);
+                previewContainer.classList.remove('hidden');
+                imageUrlInput.value = ''; // clear url input if file is chosen
+            });
+            reader.readAsDataURL(file);
+        }
+    });
+
+    imageUrlInput.addEventListener('input', function() {
+        if (this.value) {
+            previewImage.setAttribute('src', this.value);
+            previewContainer.classList.remove('hidden');
+        } else {
+            previewContainer.classList.add('hidden');
+        }
+    });
+</script>
+        </main>
+    </div>
+
+    <!-- Mobile Drawer Side toggler script -->
+    <script>
+        const sidebar = document.getElementById('mobile-sidebar');
+        const openBtn = document.getElementById('sidebar-toggle');
+        const closeBtn = document.getElementById('close-sidebar');
+
+        openBtn.addEventListener('click', () => {
+            sidebar.classList.remove('hidden');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            sidebar.classList.add('hidden');
+        });
+
+        // Close when clicking outside drawer
+        sidebar.addEventListener('click', (e) => {
+            if (e.target === sidebar) {
+                sidebar.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

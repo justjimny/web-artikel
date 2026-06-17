@@ -13,16 +13,21 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
     protected $fillable = [
         'name',
+        'username',
         'email',
         'password',
+        'role',
     ];
+
+    /**
+     * Get the articles uploaded by the user.
+     */
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.
