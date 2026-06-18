@@ -57,6 +57,10 @@
 
         @php
             $content = $article->content;
+            // Clean HTML content (remove &nbsp; and extra spaces)
+            $content = str_replace('&nbsp;', ' ', $content);
+            $content = preg_replace('/\s+/', ' ', $content);
+            
             $isJson = false;
             if (str_starts_with(trim($content), '{')) {
                 $decoded = json_decode($content, true);

@@ -189,13 +189,20 @@
         placeholder: 'Tulis cerita atau deskripsi lengkap artikel Anda di sini...'
     });
 
+    // Function to clean HTML content (replace &nbsp; with normal spaces)
+    function cleanHtmlContent(html) {
+        return html.replace(/&nbsp;/g, ' ')
+                   .replace(/  +/g, ' ')  // Replace multiple spaces with single space
+                   .trim();
+    }
+
     // Handle form submit
     const form = document.getElementById('article-form');
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         
         // Get Quill HTML content
-        const htmlContent = quill.getSemanticHTML();
+        let htmlContent = quill.getSemanticHTML();
         
         // Check if editor is empty
         const textContent = quill.getText().trim();
@@ -203,6 +210,9 @@
             alert('Konten artikel tidak boleh kosong!');
             return;
         }
+        
+        // Clean HTML content (remove &nbsp; and extra spaces)
+        htmlContent = cleanHtmlContent(htmlContent);
         
         document.getElementById('content').value = htmlContent;
         form.submit();
