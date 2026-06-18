@@ -6,7 +6,7 @@
 @section('content')
 <article class="py-12 sm:py-16">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         <!-- Back Button -->
         <a href="{{ route('public.articles') }}" class="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-500 hover:text-primary mb-8 transition-colors">
             <i class="fa-solid fa-arrow-left"></i> Kembali ke Daftar Artikel
@@ -19,7 +19,7 @@
                     {{ $article->category->name }}
                 </span>
             @endif
-            
+
             <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
                 {{ $article->title }}
             </h1>
@@ -34,7 +34,7 @@
                         <p class="text-xs text-slate-400 mt-1">Publisher</p>
                     </div>
                 </div>
-                
+
                 <span class="hidden sm:inline w-1.5 h-1.5 rounded-full bg-slate-300"></span>
 
                 <div class="flex items-center gap-1.5">
@@ -60,7 +60,7 @@
             // Clean HTML content (remove &nbsp; and extra spaces)
             $content = str_replace('&nbsp;', ' ', $content);
             $content = preg_replace('/\s+/', ' ', $content);
-            
+
             $isJson = false;
             if (str_starts_with(trim($content), '{')) {
                 $decoded = json_decode($content, true);
@@ -113,7 +113,7 @@
                     <i class="fa-solid fa-user-shield text-primary mr-1.5"></i>{{ $article->user->name }}
                 </span>
             </div>
-            
+
             <div class="flex items-center gap-3">
                 <span class="text-sm text-slate-400 font-medium">Bagikan:</span>
                 <a href="https://api.whatsapp.com/send?text={{ urlencode($article->title . ' ' . url()->current()) }}" target="_blank" class="w-9 h-9 rounded-xl bg-green-50 hover:bg-green-500 hover:text-white flex items-center justify-center text-green-600 transition-all">
@@ -136,7 +136,7 @@
     <section class="bg-slate-50 border-t border-slate-100 py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-2xl font-bold text-slate-900 tracking-tight mb-8">Artikel Terkait</h2>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 @foreach($relatedArticles as $related)
                     <article class="flex flex-col bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300">

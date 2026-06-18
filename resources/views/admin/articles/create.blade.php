@@ -55,13 +55,13 @@
             <!-- Cover Image File Upload / URL -->
             <div class="space-y-2">
                 <label class="text-sm font-bold text-slate-700 block">Foto Cover Artikel</label>
-                
+
                 <div class="flex items-center gap-6">
                     <!-- Preview Holder -->
                     <div id="image-preview-container" class="hidden w-28 aspect-[16/10] rounded-xl border border-slate-200 overflow-hidden bg-slate-50 flex-shrink-0">
                         <img id="image-preview" src="#" alt="Preview" class="w-full h-full object-cover">
                     </div>
-                    
+
                     <!-- File drop/picker -->
                     <div class="flex-grow">
                         <input type="file" id="image" name="image" accept="image/*" class="hidden">
@@ -195,20 +195,20 @@
     const form = document.getElementById('article-form');
     form.addEventListener('submit', function(e) {
         e.preventDefault();
-        
+
         // Get Quill HTML content
         let htmlContent = quill.getSemanticHTML();
-        
+
         // Check if editor is empty
         const textContent = quill.getText().trim();
         if (textContent === '') {
             alert('Konten artikel tidak boleh kosong!');
             return;
         }
-        
+
         // Clean HTML content (remove &nbsp; and extra spaces)
         htmlContent = cleanHtmlContent(htmlContent);
-        
+
         document.getElementById('content').value = htmlContent;
         form.submit();
     });
