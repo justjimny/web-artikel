@@ -5,22 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', $siteSettings['seo_meta_title'] ?? 'Portal Artikel')</title>
     <meta name="description" content="@yield('meta_description', $siteSettings['seo_meta_description'] ?? 'Kumpulan artikel menarik.')">
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    
+
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 @php
     $primaryColor = $siteSettings['primary_color'] ?? '#2563eb';
     $secondaryColor = $siteSettings['secondary_color'] ?? '#10b981';
-    
+
     // Slight transparency hover color
     $primaryHover = $primaryColor . 'dd';
-    
+
     // Function to calculate contrast (returns white or dark slate)
     $getContrastColor = function($hexColor) {
         $hex = str_replace('#', '', $hexColor);
@@ -38,7 +38,7 @@
         $yiq = (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
         return ($yiq >= 170) ? '#0f172a' : '#ffffff';
     };
-    
+
     // Function to darken color if it is too light for text
     $getReadableTextColor = function($hexColor) {
         $hex = str_replace('#', '', $hexColor);
@@ -53,9 +53,9 @@
         } else {
             return '#2563eb';
         }
-        
+
         $yiq = (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
-        
+
         if ($yiq >= 130) {
             // Darken component colors significantly
             $r = max(0, min(255, (int)($r * 0.45)));
@@ -63,10 +63,10 @@
             $b = max(0, min(255, (int)($b * 0.45)));
             return sprintf("#%02x%02x%02x", $r, $g, $b);
         }
-        
+
         return '#' . $hex;
     };
-    
+
     // Helper to get RGB
     $getRGB = function($hexColor) {
         $hex = str_replace('#', '', $hexColor);
@@ -83,13 +83,13 @@
         }
         return "$r, $g, $b";
     };
-    
+
     $primaryRGB = $getRGB($primaryColor);
     $secondaryRGB = $getRGB($secondaryColor);
-    
+
     $primaryContrast = $getContrastColor($primaryColor);
     $secondaryContrast = $getContrastColor($secondaryColor);
-    
+
     $textPrimary = $getReadableTextColor($primaryColor);
     $textSecondary = $getReadableTextColor($secondaryColor);
 @endphp
@@ -102,26 +102,28 @@
             --primary-hover: {{ $primaryHover }};
             --primary-contrast: {{ $primaryContrast }};
             --text-primary: {{ $textPrimary }};
-            
+
             --secondary-color: {{ $secondaryColor }};
             --secondary-color-rgb: {{ $secondaryRGB }};
             --secondary-contrast: {{ $secondaryContrast }};
             --text-secondary: {{ $textSecondary }};
-            
+
             --bg-color: {{ $siteSettings['bg_color'] ?? '#f8fafc' }};
             --font-family: '{{ $siteSettings['font_family'] ?? 'Instrument Sans' }}', sans-serif;
 
             /* Logo customization settings variables */
-            --logo-width: {{ $siteSettings['logo_width'] ?? '120' }}px;
-            --logo-height: {{ $siteSettings['logo_height'] ?? '40' }}px;
+            --logo-primary-width: {{ $siteSettings['logo_primary_width'] ?? $siteSettings['logo_width'] ?? '120' }}px;
+            --logo-primary-height: {{ $siteSettings['logo_primary_height'] ?? $siteSettings['logo_height'] ?? '40' }}px;
             --logo-border-radius: {{ ($siteSettings['logo_shape'] ?? 'rectangle') === 'circle' ? '9999px' : ($siteSettings['logo_border_radius'] ?? '8') . 'px' }};
         }
 
         .logo-custom {
-            width: var(--logo-width) !important;
-            height: var(--logo-height) !important;
+            width: var(--logo-primary-width) !important;
+            height: var(--logo-primary-height) !important;
             border-radius: var(--logo-border-radius) !important;
             object-fit: cover !important;
+            border: none !important;
+            background: transparent !important;
         }
 
         /* Direct CSS fallback overrides to bypass Tailwind compilation inside container */
@@ -151,7 +153,7 @@
         .focus\:border-primary:focus {
             border-color: var(--primary-color) !important;
         }
-        
+
         .bg-secondary {
             background-color: var(--secondary-color) !important;
             color: var(--secondary-contrast) !important;
@@ -165,7 +167,7 @@
         .hover\:text-secondary:hover {
             color: var(--text-secondary) !important;
         }
-        
+
         .bg-primary\/10 {
             background-color: rgba(var(--primary-color-rgb), 0.1) !important;
         }
@@ -178,7 +180,7 @@
         .bg-secondary\/10 {
             background-color: rgba(var(--secondary-color-rgb), 0.1) !important;
         }
-        
+
         .shadow-primary\/20 {
             box-shadow: 0 4px 6px -1px rgba(var(--primary-color-rgb), 0.2), 0 2px 4px -2px rgba(var(--primary-color-rgb), 0.2) !important;
         }
@@ -230,21 +232,21 @@
         body.dark .bg-slate-50\/50 {
             background-color: #1e293b !important;
         }
-        body.dark .text-slate-900, 
-        body.dark .text-slate-950, 
+        body.dark .text-slate-900,
+        body.dark .text-slate-950,
         body.dark .text-slate-800 {
             color: #f8fafc !important;
         }
-        body.dark .text-slate-500, 
+        body.dark .text-slate-500,
         body.dark .text-slate-600 {
             color: #94a3b8 !important; /* slate-400 */
         }
-        body.dark .border-slate-100, 
+        body.dark .border-slate-100,
         body.dark .border-slate-200 {
             border-color: #334155 !important;
         }
-        body.dark input, 
-        body.dark select, 
+        body.dark input,
+        body.dark select,
         body.dark textarea {
             background-color: #0f172a !important;
             border-color: #334155 !important;
@@ -305,7 +307,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <!-- Logo / Brand Title -->
-                <div class="flex-shrink-0 flex items-center">
+                <div class="flex-shrink-0 flex items-center gap-4">
                     <a href="{{ route('public.home') }}" class="flex items-center gap-2.5 group">
                         @if(!empty($siteSettings['site_logo']))
                             <img src="{{ asset('storage/' . $siteSettings['site_logo']) }}" alt="Logo" class="logo-custom transition-transform group-hover:scale-105">
@@ -318,6 +320,17 @@
                             </span>
                         @endif
                     </a>
+
+                    @if(!empty($siteSettings['site_logo_secondary_1']) || !empty($siteSettings['site_logo_secondary_2']))
+                        <div class="hidden md:flex items-center gap-3">
+                            @if(!empty($siteSettings['site_logo_secondary_1']))
+                                <img src="{{ asset('storage/' . $siteSettings['site_logo_secondary_1']) }}" alt="Logo Sekunder 1" class="object-contain rounded-xl" style="width: {{ $siteSettings['logo_secondary_1_width'] ?? $siteSettings['logo_width'] ?? '120' }}px; height: {{ $siteSettings['logo_secondary_1_height'] ?? $siteSettings['logo_height'] ?? '40' }}px; border-radius: {{ ($siteSettings['logo_shape'] ?? 'rectangle') === 'circle' ? '9999px' : ($siteSettings['logo_border_radius'] ?? '8') . 'px' }};">
+                            @endif
+                            @if(!empty($siteSettings['site_logo_secondary_2']))
+                                <img src="{{ asset('storage/' . $siteSettings['site_logo_secondary_2']) }}" alt="Logo Sekunder 2" class="object-contain rounded-xl" style="width: {{ $siteSettings['logo_secondary_2_width'] ?? $siteSettings['logo_width'] ?? '120' }}px; height: {{ $siteSettings['logo_secondary_2_height'] ?? $siteSettings['logo_height'] ?? '40' }}px; border-radius: {{ ($siteSettings['logo_shape'] ?? 'rectangle') === 'circle' ? '9999px' : ($siteSettings['logo_border_radius'] ?? '8') . 'px' }};">
+                            @endif
+                        </div>
+                    @endif
                 </div>
 
                 <!-- Navigation links -->
@@ -437,11 +450,11 @@
                                 <i class="fa-brands fa-youtube"></i>
                             </a>
                         @endif
-                        
+
                         <!-- Custom links dynamically added by super admin if any -->
                         @foreach($siteSettings as $key => $value)
                             @if(str_starts_with($key, 'footer_custom_name_') && !empty($value))
-                                @php 
+                                @php
                                     $index = substr($key, strlen('footer_custom_name_'));
                                     $customUrl = $siteSettings['footer_custom_url_' . $index] ?? '#';
                                     $customIcon = $siteSettings['footer_custom_icon_' . $index] ?? 'fa-solid fa-link';
