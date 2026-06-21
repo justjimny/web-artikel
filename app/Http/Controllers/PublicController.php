@@ -46,7 +46,7 @@ class PublicController extends Controller
             });
         }
 
-        $articles = $query->paginate(6)->withQueryString();
+        $articles = $query->paginate(8)->withQueryString();
         $categories = Category::withCount('articles')->get();
 
         return view('public.articles', compact('articles', 'categories'));
@@ -58,7 +58,7 @@ class PublicController extends Controller
     public function articleDetail($slug)
     {
         $article = Article::with('category', 'user')->where('slug', $slug)->firstOrFail();
-        
+
         // Fetch related articles (same category, excluding current)
         $relatedArticles = Article::where('category_id', $article->category_id)
             ->where('id', '!=', $article->id)

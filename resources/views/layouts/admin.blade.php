@@ -4,21 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Dashboard Admin') - {{ $siteSettings['site_title'] ?? 'Portal Artikel' }}</title>
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
+
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 @php
     $primaryColor = $siteSettings['primary_color'] ?? '#2563eb';
-    
+
     // Slight transparency hover color
     $primaryHover = $primaryColor . 'dd';
-    
+
     // Function to calculate contrast (returns white or dark slate)
     $getContrastColor = function($hexColor) {
         $hex = str_replace('#', '', $hexColor);
@@ -36,7 +36,7 @@
         $yiq = (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
         return ($yiq >= 170) ? '#0f172a' : '#ffffff';
     };
-    
+
     // Function to darken color if it is too light for text
     $getReadableTextColor = function($hexColor) {
         $hex = str_replace('#', '', $hexColor);
@@ -51,9 +51,9 @@
         } else {
             return '#2563eb';
         }
-        
+
         $yiq = (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
-        
+
         if ($yiq >= 130) {
             // Darken component colors significantly
             $r = max(0, min(255, (int)($r * 0.45)));
@@ -61,10 +61,10 @@
             $b = max(0, min(255, (int)($b * 0.45)));
             return sprintf("#%02x%02x%02x", $r, $g, $b);
         }
-        
+
         return '#' . $hex;
     };
-    
+
     // Parse RGB to allow custom alpha channel in CSS variables
     $hex = str_replace('#', '', $primaryColor);
     if (strlen($hex) == 3) {
@@ -78,7 +78,7 @@
     } else {
         $r = 37; $g = 99; $b = 235;
     }
-    
+
     $primaryContrast = $getContrastColor($primaryColor);
     $textPrimary = $getReadableTextColor($primaryColor);
 @endphp
@@ -95,16 +95,18 @@
             --font-family: 'Instrument Sans', sans-serif;
 
             /* Logo customization settings variables */
-            --logo-width: {{ $siteSettings['logo_width'] ?? '120' }}px;
-            --logo-height: {{ $siteSettings['logo_height'] ?? '40' }}px;
+            --logo-primary-width: {{ $siteSettings['logo_primary_width'] ?? $siteSettings['logo_width'] ?? '120' }}px;
+            --logo-primary-height: {{ $siteSettings['logo_primary_height'] ?? $siteSettings['logo_height'] ?? '40' }}px;
             --logo-border-radius: {{ ($siteSettings['logo_shape'] ?? 'rectangle') === 'circle' ? '9999px' : ($siteSettings['logo_border_radius'] ?? '8') . 'px' }};
         }
 
         .logo-custom {
-            width: var(--logo-width) !important;
-            height: var(--logo-height) !important;
+            width: var(--logo-primary-width) !important;
+            height: var(--logo-primary-height) !important;
             border-radius: var(--logo-border-radius) !important;
             object-fit: cover !important;
+            border: none !important;
+            background: transparent !important;
         }
 
         /* Direct CSS fallback overrides to bypass Tailwind compilation inside container */
@@ -192,7 +194,7 @@
 
         <!-- Navigation Links -->
         <nav class="flex-grow p-4 space-y-7 overflow-y-auto text-sm font-semibold tracking-wide">
-            
+
             <!-- Super Admin Section -->
             @if(auth()->user()->role === 'super_admin')
                 <div class="space-y-1.5">
@@ -237,7 +239,7 @@
                     </span>
                 </div>
             </div>
-            
+
             <form action="{{ route('admin.logout') }}" method="POST">
                 @csrf
                 <button type="submit" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 text-slate-600 hover:text-red-600 hover:border-red-200 hover:bg-red-50 text-xs font-bold transition-all cursor-pointer">
@@ -258,7 +260,7 @@
                 </button>
                 <h2 class="text-xl font-extrabold text-slate-900 tracking-tight">@yield('page_title', 'Dashboard')</h2>
             </div>
-            
+
             <div class="flex items-center gap-4">
                 <a href="{{ route('public.home') }}" target="_blank" class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-slate-200 text-slate-600 hover:text-primary hover:border-primary text-xs font-bold transition-all">
                     <i class="fa-solid fa-globe"></i> Kunjungi Website
@@ -273,7 +275,7 @@
                 <button id="close-sidebar" class="absolute top-6 right-6 text-slate-500 hover:text-slate-800 text-lg cursor-pointer">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
-                
+
                 <div class="h-20 flex items-center px-6 border-b border-slate-100">
                     <div class="flex items-center gap-2.5">
                         @if(!empty($siteSettings['site_logo']))
